@@ -8,15 +8,9 @@ export default function Home() {
 			<Layout>
 				<Box>
 					<Grid container>
-						<Grid item xs={4}>
-							opa
-						</Grid>
-						<Grid item xs={4}>
-							ipa
-						</Grid>
-						<Grid item xs={8}>
-							upa
-						</Grid>
+						<Grid item xs={4}></Grid>
+						<Grid item xs={4}></Grid>
+						<Grid item xs={8}></Grid>
 					</Grid>
 				</Box>
 			</Layout>

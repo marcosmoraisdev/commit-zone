@@ -1,17 +1,15 @@
 import Footer from '@/components/footer/footer';
 import NavBar from '@/components/navbar/navbar';
 import { Props } from '@/utils/interfaces';
+import { Container } from '@mui/material';
 
 export default function Layout({ children }: Props) {
 	return (
 		<>
-			<div className='h-[7vh]'>
-				<NavBar />
-			</div>
-			<div className='min-h-[93vh]'>
+			<NavBar />
+			<Container className='min-h-screen'>
 				<main>{children}</main>
-			</div>
-
+			</Container>
 			<Footer />
 		</>
 	);

@@ -27,8 +27,15 @@ export default function Settings() {
 	return (
 		<Box className='grow-0'>
 			<Tooltip title='Open settings'>
-				<IconButton className='p-0' onClick={handleOpenUserMenu}>
-					<Avatar alt='Marcos' src='/static/images/avatar/2.jpg' />
+				<IconButton
+					color='secondary'
+					className='p-0'
+					onClick={handleOpenUserMenu}>
+					<Avatar
+						color='secondary'
+						alt='Marcos'
+						src='/static/images/avatar/2.jpg'
+					/>
 				</IconButton>
 			</Tooltip>
 			<Menu

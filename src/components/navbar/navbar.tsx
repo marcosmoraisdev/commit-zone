@@ -41,13 +41,13 @@ export default function NavBar() {
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
 	return (
-		<AppBar className='h-full' position='static'>
+		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<AdbIcon className='hidden mr-1 lg:flex' />
+					<AdbIcon color='secondary' className='hidden mr-1 lg:flex' />
 					<Box className='flex lg:grow lg:hidden'>
 						<IconButton
-							className='text-white'
+							color='secondary'
 							size='large'
 							onClick={handleOpenNavMenu}>
 							<MenuIcon />
@@ -76,13 +76,14 @@ export default function NavBar() {
 							))}
 						</Menu>
 					</Box>
-					<AdbIcon className='flex grow lg:hidden' />
+					<AdbIcon color='secondary' className='flex grow lg:hidden' />
 					<Box className='hidden lg:grow lg:flex'>
 						{pages.map((page) => (
 							<Button
 								key={page.key}
+								color='secondary'
 								onClick={handleCloseNavMenu}
-								className='block my-2 text-white'>
+								className='block my-2'>
 								{page.name}
 							</Button>
 						))}

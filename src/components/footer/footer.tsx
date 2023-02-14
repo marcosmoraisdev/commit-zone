@@ -3,13 +3,13 @@ import { Box, Container } from '@mui/system';
 export default function Footer() {
 	return (
 		<>
-			<footer className='text-center text-gray-600 bg-gray-100 lg:text-left'>
+			<footer className='text-center text-gray-300 bg-gray-800 lg:text-left'>
 				<div className='flex items-center justify-center p-6 border-b border-gray-300 lg:justify-between'>
 					<div className='hidden mr-12 lg:block'>
 						<span>Get connected with us on social networks:</span>
 					</div>
 					<div className='flex justify-center'>
-						<a href='#!' className='mr-6 text-gray-600'>
+						<a href='#!' className='mr-6 text-gray-300'>
 							<svg
 								aria-hidden='true'
 								focusable='false'
@@ -24,7 +24,7 @@ export default function Footer() {
 									d='M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z'></path>
 							</svg>
 						</a>
-						<a href='#!' className='mr-6 text-gray-600'>
+						<a href='#!' className='mr-6 text-gray-300'>
 							<svg
 								aria-hidden='true'
 								focusable='false'
@@ -247,10 +247,10 @@ export default function Footer() {
 						</div>
 					</div>
 				</div>
-				<div className='p-6 text-center bg-gray-200'>
+				<div className='p-6 text-center bg-gray-700'>
 					<span>© 2021 Copyright:</span>
 					<a
-						className='font-semibold text-gray-600'
+						className='font-semibold text-gray-200'
 						href='https://tailwind-elements.com/'>
 						Tailwind Elements
 					</a>
