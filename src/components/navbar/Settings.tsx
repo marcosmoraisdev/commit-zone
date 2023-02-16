@@ -1,28 +1,18 @@
 import {
-	Box,
-	Tooltip,
-	IconButton,
 	Avatar,
+	Box,
+	IconButton,
 	Menu,
 	MenuItem,
+	Tooltip,
 	Typography,
 } from '@mui/material';
-import React from 'react';
+import { useState } from 'react';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Settings() {
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
-
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
-	};
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
 	return (
 		<Box className='grow-0'>
@@ -40,6 +30,7 @@ export default function Settings() {
 			</Tooltip>
 			<Menu
 				id='menu-appbar'
+				color='secondary'
 				className='mt-2'
 				anchorEl={anchorElUser}
 				anchorOrigin={{
@@ -61,4 +52,12 @@ export default function Settings() {
 			</Menu>
 		</Box>
 	);
+
+	function handleOpenUserMenu(event: React.MouseEvent<HTMLElement>) {
+		setAnchorElUser(event.currentTarget);
+	}
+
+	function handleCloseUserMenu() {
+		setAnchorElUser(null);
+	}
 }
