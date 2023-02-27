@@ -1,3 +1,4 @@
+import { Item } from '@/utils/types';
 import {
 	Avatar,
 	Box,
@@ -7,12 +8,32 @@ import {
 	Tooltip,
 	Typography,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Settings() {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+	const router = useRouter();
+
+	const settings: Item[] = [
+		{
+			key: 'profile',
+			name: 'Profile',
+		},
+		{
+			key: 'account',
+			name: 'Account',
+		},
+		{
+			key: 'dashboard',
+			name: 'Dashboard',
+		},
+		{
+			key: 'logout',
+			name: 'Logout',
+			handler: handleLogout,
+		},
+	];
 
 	return (
 		<Box className='grow-0'>
@@ -45,13 +66,26 @@ export default function Settings() {
 				open={Boolean(anchorElUser)}
 				onClose={handleCloseUserMenu}>
 				{settings.map((setting) => (
-					<MenuItem key={setting} onClick={handleCloseUserMenu}>
-						<Typography className='text-center'>{setting}</Typography>
+					<MenuItem key={setting.key} onClick={handleCloseUserMenu}>
+						<Typography onClick={setting.handler} className='text-center'>
+							{setting.name}
+						</Typography>
 					</MenuItem>
 				))}
 			</Menu>
 		</Box>
 	);
+
+	function handleLogout() {
+		// TODO logout
+		fetch('http://localhost:3000/api/auth/signout')
+			.then((res) => res.json())
+			.then(() => router.push('/auth/signin'))
+			.catch((err) => {
+				console.error(err);
+				router.push('/auth/signin');
+			});
+	}
 
 	function handleOpenUserMenu(event: React.MouseEvent<HTMLElement>) {
 		setAnchorElUser(event.currentTarget);

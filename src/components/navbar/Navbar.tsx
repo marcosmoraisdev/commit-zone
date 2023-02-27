@@ -1,6 +1,7 @@
 import logo from '@/../public/logo.svg';
-import { Item } from '@/utils/interfaces';
+import { pages } from '@/common/pages';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,35 +11,15 @@ import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useState } from 'react';
 import Settings from './Settings';
 
-const pages: Item[] = [
-	{
-		key: 'dashboard',
-		name: 'Dashboard',
-		link: '/dashboard',
-	},
-	{
-		key: 'wallets',
-		name: 'Wallets',
-		link: '/wallet',
-	},
-	{
-		key: 'transactions',
-		name: 'Transactions',
-		link: '/transaction',
-	},
-	{
-		key: 'charts',
-		name: 'Charts',
-		link: '/chart',
-	},
-];
-
 export default function NavBar() {
+	const { status } = useSession();
+	const isAuthenticated = status === 'authenticated';
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
 	return (
@@ -76,17 +57,19 @@ export default function NavBar() {
 							}}
 							open={Boolean(anchorElNav)}
 							onClose={handleCloseNavMenu}>
-							{pages.map((page) => (
-								<MenuItem onClick={handleCloseNavMenu} key={page.key}>
-									<Link
-										sx={{ textDecoration: 'none' }}
-										color='text.primary'
-										href={page.link}
-										component={NextLink}>
-										{page.name}
-									</Link>
-								</MenuItem>
-							))}
+							{pages
+								.filter((page) => page.authenticated == isAuthenticated)
+								.map((page) => (
+									<MenuItem onClick={handleCloseNavMenu} key={page.key}>
+										<Link
+											sx={{ textDecoration: 'none' }}
+											color='text.primary'
+											href={page.link}
+											component={NextLink}>
+											{page.name}
+										</Link>
+									</MenuItem>
+								))}
 						</Menu>
 					</Box>
 					<Container className='flex justify-center lg:hidden'>
@@ -95,17 +78,18 @@ export default function NavBar() {
 						</Link>
 					</Container>
 					<Box className='hidden ml-20 lg:grow lg:flex '>
-						{pages.map((page) => (
-							<Button
-								component={NextLink}
-								href={page.link}
-								key={page.key}
-								color='secondary'
-								onClick={handleCloseNavMenu}
-								className='block my-2'>
-								{page.name}
-							</Button>
-						))}
+						{pages
+							.filter((page) => page.authenticated == isAuthenticated)
+							.map((page) => (
+								<Button
+									component={NextLink}
+									href={page.link}
+									key={page.key}
+									onClick={handleCloseNavMenu}
+									className='block my-2'>
+									<Typography color='text.primary'>{page.name}</Typography>
+								</Button>
+							))}
 					</Box>
 					<Settings></Settings>
 				</Toolbar>
