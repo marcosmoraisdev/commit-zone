@@ -1,5 +1,6 @@
 import logo from '@/../public/logo.svg';
 import { pages } from '@/common/pages';
+import { useAuthContext } from '@/config/security/AuthContext';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -11,19 +12,21 @@ import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useState } from 'react';
 import Settings from './Settings';
+import SignIn from './SignIn';
 
 export default function NavBar() {
-	const { status } = useSession();
-	const isAuthenticated = status === 'authenticated';
+	const { user } = useAuthContext();
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+	const pageItems = user
+		? pages.filter((page) => page.authenticated)
+		: pages.filter((page) => !page.authenticated);
 
 	return (
-		<AppBar position='sticky'>
+		<AppBar color='secondary' position='sticky'>
 			<Container className='max-w-none'>
 				<Toolbar disableGutters>
 					<Link href='/' component={NextLink}>
@@ -36,10 +39,7 @@ export default function NavBar() {
 						/>
 					</Link>
 					<Box className='flex lg:grow lg:hidden'>
-						<IconButton
-							color='secondary'
-							size='large'
-							onClick={handleOpenNavMenu}>
+						<IconButton size='large' onClick={handleOpenNavMenu}>
 							<MenuIcon />
 						</IconButton>
 						<Menu
@@ -57,19 +57,16 @@ export default function NavBar() {
 							}}
 							open={Boolean(anchorElNav)}
 							onClose={handleCloseNavMenu}>
-							{pages
-								.filter((page) => page.authenticated == isAuthenticated)
-								.map((page) => (
-									<MenuItem onClick={handleCloseNavMenu} key={page.key}>
-										<Link
-											sx={{ textDecoration: 'none' }}
-											color='text.primary'
-											href={page.link}
-											component={NextLink}>
-											{page.name}
-										</Link>
-									</MenuItem>
-								))}
+							{pageItems.map((page) => (
+								<MenuItem onClick={handleCloseNavMenu} key={page.key}>
+									<Link
+										sx={{ textDecoration: 'none' }}
+										href={page.link}
+										component={NextLink}>
+										{page.name}
+									</Link>
+								</MenuItem>
+							))}
 						</Menu>
 					</Box>
 					<Container className='flex justify-center lg:hidden'>
@@ -78,20 +75,19 @@ export default function NavBar() {
 						</Link>
 					</Container>
 					<Box className='hidden ml-20 lg:grow lg:flex '>
-						{pages
-							.filter((page) => page.authenticated == isAuthenticated)
-							.map((page) => (
-								<Button
-									component={NextLink}
-									href={page.link}
-									key={page.key}
-									onClick={handleCloseNavMenu}
-									className='block my-2'>
-									<Typography color='text.primary'>{page.name}</Typography>
-								</Button>
-							))}
+						{pageItems.map((page) => (
+							<Button
+								component={NextLink}
+								href={page.link}
+								key={page.key}
+								onClick={handleCloseNavMenu}
+								className='block my-2'>
+								<Typography color='text.primary'>{page.name}</Typography>
+							</Button>
+						))}
 					</Box>
-					<Settings></Settings>
+
+					{user ? <Settings></Settings> : <SignIn></SignIn>}
 				</Toolbar>
 			</Container>
 		</AppBar>

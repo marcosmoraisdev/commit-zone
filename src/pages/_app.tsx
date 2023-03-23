@@ -4,6 +4,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { AuthContextProvider } from '@/config/security/AuthContext';
 import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
@@ -11,13 +12,8 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Layout from './_layout';
-import { SessionProvider } from 'next-auth/react';
-import { Session } from 'next-auth';
 
-export default function App({
-	Component,
-	pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
+export default function App({ Component }: AppProps<any>) {
 	return (
 		<StyledEngineProvider injectFirst>
 			<ThemeProvider theme={theme}>
@@ -31,11 +27,11 @@ export default function App({
 					<link rel='icon' href='/favicon.ico' />
 				</Head>
 				<CssBaseline />
-				<SessionProvider session={session}>
+				<AuthContextProvider>
 					<Layout>
-						<Component {...pageProps} />
+						<Component />
 					</Layout>
-				</SessionProvider>
+				</AuthContextProvider>
 			</ThemeProvider>
 		</StyledEngineProvider>
 	);

@@ -1,19 +1,21 @@
 import { createTheme } from '@mui/material/styles';
 
+// $white: #ffffffff;
+// $lavender-web: #d2ddeeff;
+// $true-blue: #3066beff;
+// $zaffre: #0a0daeff;
+
 export const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#3B1342',
+			main: '#3066beff',
 		},
 		secondary: {
-			main: '#BF557B',
-		},
-		background: {
-			default: '#1B0A1F',
-			paper: '#4D2853',
+			main: '#ffffffff',
 		},
 		text: {
-			primary: '#FFFFFF',
+			secondary: '#d2ddeeff',
 		},
+		mode: 'light',
 	},
 });
