@@ -16,7 +16,7 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { useState } from 'react';
 import Settings from './Settings';
-import SignIn from './SignIn';
+import SignIn from '../../pages/signIn';
 
 export default function NavBar() {
 	const { user } = useAuthContext();
@@ -87,7 +87,13 @@ export default function NavBar() {
 						))}
 					</Box>
 
-					{user ? <Settings></Settings> : <SignIn></SignIn>}
+					{user ? (
+						<Settings></Settings>
+					) : (
+						<Button component={NextLink} href='signIn' color='primary'>
+							Login
+						</Button>
+					)}
 				</Toolbar>
 			</Container>
 		</AppBar>

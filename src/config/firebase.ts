@@ -1,6 +1,8 @@
+('use client');
 // Import the functions you need from the SDKs you need
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import { Firestore, getFirestore } from 'firebase/firestore/lite';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig: FirebaseOptions = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,4 +16,5 @@ const firebaseConfig: FirebaseOptions = {
 
 const firebase = initializeApp(firebaseConfig);
 export const fireStore: Firestore = getFirestore(firebase);
+export const auth = getAuth(firebase);
 export default firebase;

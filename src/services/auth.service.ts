@@ -1,12 +1,10 @@
-import firebase from '@/config/firebase';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-	getAuth,
 	UserCredential,
 } from 'firebase/auth';
 
-const auth = getAuth(firebase);
+import { auth } from '@/config/firebase';
 
 export async function signUp(
 	email: string,
