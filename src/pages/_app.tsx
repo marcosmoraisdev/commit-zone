@@ -29,10 +29,10 @@ export default function App({ Component }: AppProps<any>) {
 			>
 				<ThemeProvider theme={theme}>
 					<Head>
-						<title>Walletsbox</title>
+						<title>CommitZone</title>
 						<meta
 							name='description'
-							content='Walletsbox | Easy All-in-one crypto wallet'
+							content='CommitZone | Solidify Your Promises: Smart Contracts Redefining Commitment.'
 						/>
 						<meta name='viewport' content='width=device-width, initial-scale=1' />
 						<link rel='icon' href='/favicon.ico' />
