@@ -4,7 +4,6 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { AuthContextProvider } from '@/config/security/AuthContext';
 import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
@@ -12,27 +11,38 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Layout from './_layout';
+import { MetaMaskUIProvider } from "@metamask/sdk-react-ui";
 
 export default function App({ Component }: AppProps<any>) {
+	const host = typeof window !== "undefined" ? window.location.host : "defaultHost";
 	return (
 		<StyledEngineProvider injectFirst>
-			<ThemeProvider theme={theme}>
-				<Head>
-					<title>Walletsbox</title>
-					<meta
-						name='description'
-						content='Walletsbox | Easy All-in-one crypto wallet'
-					/>
-					<meta name='viewport' content='width=device-width, initial-scale=1' />
-					<link rel='icon' href='/favicon.ico' />
-				</Head>
-				<CssBaseline />
-				<AuthContextProvider>
+			<MetaMaskUIProvider
+				debug={false}
+				sdkOptions={{
+					dappMetadata: {
+						name: "Commit Zone",
+						url: host,
+					},
+					// Other options
+				}}
+			>
+				<ThemeProvider theme={theme}>
+					<Head>
+						<title>Walletsbox</title>
+						<meta
+							name='description'
+							content='Walletsbox | Easy All-in-one crypto wallet'
+						/>
+						<meta name='viewport' content='width=device-width, initial-scale=1' />
+						<link rel='icon' href='/favicon.ico' />
+					</Head>
+					<CssBaseline />
 					<Layout>
 						<Component />
 					</Layout>
-				</AuthContextProvider>
-			</ThemeProvider>
+				</ThemeProvider>
+			</MetaMaskUIProvider>
 		</StyledEngineProvider>
 	);
 }

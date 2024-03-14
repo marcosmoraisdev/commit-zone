@@ -1,6 +1,5 @@
 import logo from '@/../public/logo.svg';
 import { pages } from '@/common/pages';
-import { useAuthContext } from '@/config/security/AuthContext';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -19,7 +18,7 @@ import Settings from './Settings';
 import SignIn from './SignIn';
 
 export default function NavBar() {
-	const { user } = useAuthContext();
+	const user = undefined;
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const pageItems = user
 		? pages.filter((page) => page.authenticated)
@@ -30,13 +29,16 @@ export default function NavBar() {
 			<Container className='max-w-none'>
 				<Toolbar disableGutters>
 					<Link href='/' component={NextLink}>
-						<Image
+						{/* <Image
 							width={150}
 							height={120}
 							alt='logo'
 							src={logo}
 							className='hidden mr-1 lg:flex'
-						/>
+						/> */}
+
+						<Typography color='text.primary'>Commit Zone</Typography>
+
 					</Link>
 					<Box className='flex lg:grow lg:hidden'>
 						<IconButton size='large' onClick={handleOpenNavMenu}>
@@ -59,21 +61,16 @@ export default function NavBar() {
 							onClose={handleCloseNavMenu}>
 							{pageItems.map((page) => (
 								<MenuItem onClick={handleCloseNavMenu} key={page.key}>
-									<Link
+									{/* <Link
 										sx={{ textDecoration: 'none' }}
 										href={page.link}
 										component={NextLink}>
 										{page.name}
-									</Link>
+									</Link> */}
 								</MenuItem>
 							))}
 						</Menu>
 					</Box>
-					<Container className='flex justify-center lg:hidden'>
-						<Link href='/' component={NextLink}>
-							<Image width={150} height={120} alt='logo' src={logo} />
-						</Link>
-					</Container>
 					<Box className='hidden ml-20 lg:grow lg:flex '>
 						{pageItems.map((page) => (
 							<Button
