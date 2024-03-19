@@ -8,7 +8,7 @@ export const pages: Item[] = [
   },
   {
     key: "dashboard",
-    name: "Active Contracts",
+    name: "Dashboard",
     link: "/dashboard",
     authenticated: true,
   },

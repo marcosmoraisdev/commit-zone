@@ -1,6 +1,9 @@
-import { useSDK } from '@metamask/sdk-react-ui';
+import { useSDK } from "@metamask/sdk-react-ui";
+import { Box, Typography } from "@mui/material";
 export default function Home() {
-
-	const {account} = useSDK();
-	return <h1>{account}</h1>;
+  return (
+    <Box>
+      <Typography variant="h1">Aqui sua promessa vale EDINHOS</Typography>
+    </Box>
+  );
 }

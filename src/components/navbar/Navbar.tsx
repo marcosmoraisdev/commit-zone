@@ -7,16 +7,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Image from "next/image";
-import NextLink from "next/link";
+// import NextLink from "next/link";
 import { useState } from "react";
 import Settings from "./Settings";
 import SignIn from "./SignIn";
 import { useAccount } from "@metamask/sdk-react-ui";
+import Link from "next/link";
 
 export default function NavBar() {
   const isConnected = useAccount().isConnected;
@@ -29,7 +30,7 @@ export default function NavBar() {
     <AppBar color="secondary" position="sticky">
       <Container className="max-w-none">
         <Toolbar disableGutters>
-          <Link href="/" component={NextLink}>
+          <Link href="/">
             {/* <Image
   						width={150}
   						height={120}
@@ -38,7 +39,14 @@ export default function NavBar() {
   						className='hidden mr-1 lg:flex'
   					/> */}
 
-            <Typography color="text.primary">Commit Zone</Typography>
+            <Button
+              component={Link}
+              href={"/"}
+              onClick={handleCloseNavMenu}
+              className="block my-2"
+            >
+              <Typography color="text.primary">Commit Zone</Typography>
+            </Button>
           </Link>
           <Box className="flex lg:grow lg:hidden">
             <IconButton size="large" onClick={handleOpenNavMenu}>
@@ -58,14 +66,13 @@ export default function NavBar() {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              // onClose={handleCloseNavMenu}
             >
               {pageItems.map((page) => (
                 <MenuItem onClick={handleCloseNavMenu} key={page.key}>
                   <Link
-                    sx={{ textDecoration: "none" }}
+                    style={{ textDecoration: "none" }}
                     href={page.link as string}
-                    component={NextLink}
                   />
                   {page.name}
                 </MenuItem>
@@ -75,7 +82,7 @@ export default function NavBar() {
           <Box className="hidden ml-20 lg:grow lg:flex ">
             {pageItems.map((page) => (
               <Button
-                component={NextLink}
+                component={Link}
                 href={page.link}
                 key={page.key}
                 onClick={handleCloseNavMenu}
