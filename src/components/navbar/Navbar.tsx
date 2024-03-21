@@ -44,7 +44,7 @@ export default function NavBarTest() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {pages.map((page) => (
+                    {pageItems.map((page) => (
                       <Link
                         key={page.name}
                         href={page.link as string}
