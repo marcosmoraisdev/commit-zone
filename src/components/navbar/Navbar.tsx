@@ -1,108 +1,71 @@
-import logo from "@/../public/logo.svg";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { pages } from "@/common/pages";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Typography } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-// import Link from "@mui/material/Link";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
-import Image from "next/image";
-// import NextLink from "next/link";
-import { useState } from "react";
-import Settings from "./Settings";
-import SignIn from "./SignIn";
 import { useAccount } from "@metamask/sdk-react-ui";
+import SignIn from "./SignIn";
 import Link from "next/link";
 
-export default function NavBar() {
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+export default function NavBarTest() {
   const isConnected = useAccount().isConnected;
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const pageItems = isConnected
     ? pages.filter((page) => page.authenticated)
     : pages.filter((page) => !page.authenticated);
 
   return (
-    <AppBar color="secondary" position="sticky">
-      <Container className="max-w-none">
-        <Toolbar disableGutters>
-          <Link href="/">
-            {/* <Image
-  						width={150}
-  						height={120}
-  						alt='logo'
-  						src={logo}
-  						className='hidden mr-1 lg:flex'
-  					/> */}
-
-            <Button
-              component={Link}
-              href={"/"}
-              onClick={handleCloseNavMenu}
-              className="block my-2"
-            >
-              <Typography color="text.primary">Commit Zone</Typography>
-            </Button>
-          </Link>
-          <Box className="flex lg:grow lg:hidden">
-            <IconButton size="large" onClick={handleOpenNavMenu}>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              className="mt-1 lg:hidden"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              // onClose={handleCloseNavMenu}
-            >
-              {pageItems.map((page) => (
-                <MenuItem onClick={handleCloseNavMenu} key={page.key}>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    href={page.link as string}
-                  />
-                  {page.name}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box className="hidden ml-20 lg:grow lg:flex ">
-            {pageItems.map((page) => (
-              <Button
-                component={Link}
-                href={page.link}
-                key={page.key}
-                onClick={handleCloseNavMenu}
-                className="block my-2"
-              >
-                <Typography color="text.primary">{page.name}</Typography>
-              </Button>
-            ))}
-          </Box>
-
-          <SignIn></SignIn>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <Disclosure as="nav" className="bg-gray-800">
+      {({ open }) => (
+        <>
+          <div className="mx-auto px-2 sm:px-6">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <Link href="/">
+                    <img
+                      className="h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      alt="Commit-Zone"
+                    />
+                  </Link>
+                </div>
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-4">
+                    {pages.map((page) => (
+                      <Link
+                        key={page.name}
+                        href={page.link as string}
+                        className={classNames(
+                          "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-sm font-medium"
+                        )}
+                      >
+                        {page.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <SignIn />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </Disclosure>
   );
-  function handleOpenNavMenu(event: React.MouseEvent<HTMLElement>) {
-    setAnchorElNav(event.currentTarget);
-  }
-
-  function handleCloseNavMenu(event: React.MouseEvent<HTMLElement>) {
-    setAnchorElNav(null);
-  }
 }

@@ -13,15 +13,15 @@ export const pages: Item[] = [
     authenticated: true,
   },
   {
-    key: "wallets",
+    key: "contract",
     name: "Make a new Contract",
-    link: "/wallet",
+    link: "/contract",
     authenticated: true,
   },
   {
-    key: "transactions",
+    key: "validateContract",
     name: "Validate a Contract",
-    link: "/transaction",
+    link: "/validate",
     authenticated: true,
   },
 ];
